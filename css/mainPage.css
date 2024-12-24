@@ -1,0 +1,112 @@
+body{
+    height: 100vh;
+}
+.home{
+    background: rgb(3,92,194);
+    background: linear-gradient(180deg, rgba(3,92,194,1) 0%, rgba(177,231,255,1) 82%);
+}
+.grid-page {
+    display: grid;
+    grid-template-columns:1fr;
+    grid-template-rows: 100px 50px auto 100px;
+}
+
+.header {
+    grid-column: 1 / -1;
+    display: flex;
+}
+.logo {
+    width: max(12%, 100px);
+    height: auto;
+    border-radius: 25px;
+}
+
+.header > div:nth-child(2) {
+    margin-left: auto;
+}
+
+.GameSphere {
+    grid-column: 1 / -1;
+}
+
+
+.content-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Flexible grid */
+    grid-row-gap: 4px; 
+    grid-column-gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.games > figure {
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7), 0 -4px 6px rgba(0, 0, 0, 0.7);
+    transition: 0.3s ease, box-shadow 0.3s ease;
+    width: 200px;
+    height: 360px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+figure:hover {
+    box-shadow: 0 8px 12px rgba(228, 228, 228, 0.9), 0 -8px 12px rgba(228, 228, 228, 0.9);
+}
+
+img {
+    width: 100%; /* Allow the image to scale to the container */
+    height: 250%; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure images fill the grid cell neatly */
+}
+
+
+figcaption {
+    text-align: center;
+    padding: 10px;
+    background-color: #000;
+    font-size: 1rem;
+}
+
+/* General button style for links */
+.header a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+/* Hover animation */
+.header a:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1); /* Slight zoom-in effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow for emphasis */
+}
+
+
+@media screen and (max-width: 650px) {
+    .logo {
+        display: none;
+    }
+    .header{
+        margin: auto;
+    }
+    
+    .content-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+    .footer{
+        margin-right: 2.5%;
+    }
+}
