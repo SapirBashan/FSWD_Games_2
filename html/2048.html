@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>2048 Game Online</title>
+    <link rel="stylesheet" href="../css/2048.css">
+    <script src="../js/2048.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="info">
+        <h1 id="tile">2048</h1>
+        <div class="score-container">
+          <div class="score-title">score</div>
+          <span id="score">0</span>
+        </div>
+      </div>
+      <span id="result">Combine the numbers and aim for the <b id="target-tile">2048</b> tile!</span>
+      
+      <!-- Difficulty selection -->
+      <div class="difficulty-container">
+        <label for="difficulty">Select Difficulty: </label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <div class="grid"></div>
+    </div>
+  </body>
+</html>
