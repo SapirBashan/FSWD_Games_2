@@ -3,57 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cineverse</title>
+    <title>GameSphere - Login</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
 </head>
 <body>
     <div class="wrapper">
-        <form action="" onsubmit="return validateForm()">
+        <form id="loginForm" onsubmit="return handleLogin()">
             <h1>Login</h1>
             <div class="input-box">
                 <input id="username" type="text" placeholder="Username" required>
-                <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
                 <input id="password" type="password" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="remember-forgot">
-                <lable>
-                    <input type="checkbox"> 
-                    Remember me
-                </lable>
-                <a href="./forgot_password.html">Forgot password?</a>
             </div>
             <button type="submit" class="btn">Login</button>
-
             <div class="register-link">
-                <p>
-                    Don't have an account? 
-                    <a href="./registration.html">Register</a>
-                </p>
+                <p>Don't have an account? <a href="./registration.html">Register</a></p>
             </div>
         </form>
     </div>
-    
+
     <script>
-        function validateForm() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+        // Load users from localStorage or initialize empty object
+        const users = JSON.parse(localStorage.getItem('users')) || {};
 
-            // Check if both fields are filled
-            if (username === "" || password === "") {
-                alert("Please fill in both fields.");
-                return false; // Prevent form submission
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if user exists and password matches
+            if (users[username] && users[username].password === password) {
+                document.cookie = "theme=dark; max-age=31536000"; // 1 year, saving theme
+                window.location.href = './mainPage.html';
+                return false;
+            } else {
+                alert('Invalid username or password.');
+                return false;
             }
-
-            // If fields are not empty, redirect to homePage.html
-            window.location.href = "homePage.html";
-            return false; // Prevent form submission
         }
     </script>
-
 </body>
 </html>

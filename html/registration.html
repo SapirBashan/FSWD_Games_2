@@ -3,29 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cineverse - Registration</title>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>GameSphere - Registration</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="wrapper">
-        <form id="registerForm" onsubmit="return validateForm()">
+        <form id="registerForm" onsubmit="return handleRegistration()">
             <h1>Register</h1>
             <div class="input-box">
-                <input type="text" id="fullname" placeholder="Full Name" required>
-                <i class="bx bxs-user"></i>
+                <input id="fullname" type="text" placeholder="Full Name" required>
             </div>
             <div class="input-box">
-                <input type="email" id="email" placeholder="Email" required>
-                <i class="bx bxs-envelope"></i>
+                <input id="username" type="text" placeholder="Username" required>
             </div>
             <div class="input-box">
-                <input type="password" id="password" placeholder="Password" required>
-                <i class="bx bxs-lock-alt"></i>
+                <input id="email" type="email" placeholder="Email" required>
             </div>
             <div class="input-box">
-                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-                <i class="bx bxs-lock-alt"></i>
+                <input id="password" type="password" placeholder="Password" required>
+            </div>
+            <div class="input-box">
+                <input id="confirmPassword" type="password" placeholder="Confirm Password" required>
             </div>
             <button type="submit" class="btn">Register</button>
             <div class="login-link">
@@ -35,28 +33,39 @@
     </div>
 
     <script>
-        function validateForm() {
-            var fullname = document.getElementById("fullname").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+        // Load users from localStorage or initialize empty object
+        const users = JSON.parse(localStorage.getItem('users')) || {};
 
-            // Check if fields are empty
-            if (fullname === "" || email === "" || password === "" || confirmPassword === "") {
-                alert("Please fill in all fields.");
-                return false;
-            }
+        function handleRegistration() {
+            const fullname = document.getElementById('fullname').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
             // Check if passwords match
             if (password !== confirmPassword) {
-                alert("Passwords do not match.");
+                alert('Passwords do not match.');
                 return false;
             }
 
-            // If everything is correct, submit the form
-            alert("Registration successful!");
-            window.location.href = "homePage.html";
-            return false; // Prevent form submission for now
+            // Check if username already exists
+            if (users[username]) {
+                alert('Username already exists.');
+                return false;
+            }
+
+            // Save new user to localStorage
+            users[username] = { fullname, email, password };
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful!');
+            // Redirect to the login page
+            setTimeout(() => {
+                window.location.href = "./index.html";
+            }, 1000);
+
+            return false;
         }
     </script>
 </body>

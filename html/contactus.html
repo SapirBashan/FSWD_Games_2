@@ -9,8 +9,8 @@
 <body>
     <div class="wrapper">
         <h1>Contact Us</h1>
-        <a href="homepage.html" class="back-button">← Back</a>
-        <form id="contactForm" onsubmit="return validateForm()">
+        <a href="./mainPage.html" class="back-button">← Back</a>
+        <form id="contactForm" onsubmit="return handleContactUs()">
             <!-- Name -->
             <div class="input-box">
                 <input type="text" name="name" id="name" placeholder="Your Name" required>
@@ -45,29 +45,33 @@
     
         <!-- Confirmation Message -->
         <p id="confirmationMessage" style="display: none; color: limegreen; text-align: center; font-size: 16px; margin-top: 20px;">
-            Your message has been sent successfully!
+            Your message has been sent successfully! We'll get back to you soon.
         </p>
     </div>
 
     <script>
-        function validateForm() {
-            const subject = document.getElementById('subject').value;
-            const confirmationMessage = document.getElementById('confirmationMessage');
+        function handleContactUs() {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const subject = document.getElementById("subject").value.trim();
+            const message = document.getElementById("message").value.trim();
+            const confirmationMessage = document.getElementById("confirmationMessage");
 
-            if (!subject) {
-                alert('Please select a subject.');
-                return false; // Prevent form submission
+            // Validation
+            if (!name || !email || !subject || !message) {
+                alert("All fields are required. Please complete the form.");
+                return false;
             }
 
-            // Show the confirmation message
-            confirmationMessage.style.display = 'block';
+            // Display confirmation message
+            confirmationMessage.style.display = "block";
 
-            // Wait 5 seconds and redirect to homepage.html
+            // Redirect to mainPage after a short delay
             setTimeout(() => {
-                window.location.href = 'homepage.html';
-            }, 1000); // 1000 milliseconds = 1 second
+                window.location.href = "./mainPage.html";
+            }, 1000);
 
-            return false; // Prevent form from actually submitting for demonstration purposes
+            return false; // Prevent form submission
         }
     </script>
 </body>
