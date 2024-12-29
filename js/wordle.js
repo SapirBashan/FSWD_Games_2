@@ -74,7 +74,7 @@ const words = [
     let availableSpace = 1;
     let guessedWords = [[]];
 
-  
+    
     //clearAllLocalStorage();
     initLocalStorage();
     initHelpModal();
@@ -82,80 +82,64 @@ const words = [
     createSquares();
     addKeyboardClicks();
     loadLocalStorage();
-
+    
+    /* ------------------------ local storage handaling -------------------------------- */
+    // Clears all data from local storage.
     function clearAllLocalStorage() {
         window.localStorage.clear();
         console.log("All local storage data has been cleared.");
     }
-  
+
+    // Initializes local storage with current word index.
     function initLocalStorage() {
-      const storedCurrentWordIndex =
+        const storedCurrentWordIndex =
         window.localStorage.getItem("currentWordIndex");
-      if (!storedCurrentWordIndex) {
-        window.localStorage.setItem("currentWordIndex", currentWordIndex);
-      } else {
-        currentWordIndex = Number(storedCurrentWordIndex);
-        currentWord = words[currentWordIndex];
-      }
+        if (!storedCurrentWordIndex) {
+            window.localStorage.setItem("currentWordIndex", currentWordIndex);
+        } else {
+            currentWordIndex = Number(storedCurrentWordIndex);
+            currentWord = words[currentWordIndex];
+        }
     }
   
     function loadLocalStorage() {
         currentWordIndex =
-          Number(window.localStorage.getItem("currentWordIndex")) ||
-          currentWordIndex;
+        Number(window.localStorage.getItem("currentWordIndex")) ||
+        currentWordIndex;
         guessedWordCount =
-          Number(window.localStorage.getItem("guessedWordCount")) ||
-          guessedWordCount;
+        Number(window.localStorage.getItem("guessedWordCount")) ||
+        guessedWordCount;
         availableSpace =
-          Number(window.localStorage.getItem("availableSpace")) || availableSpace;
+        Number(window.localStorage.getItem("availableSpace")) || availableSpace;
         guessedWords =
-          JSON.parse(window.localStorage.getItem("guessedWords")) || guessedWords;
-      
+        JSON.parse(window.localStorage.getItem("guessedWords")) || guessedWords;
+        
         currentWord = words[currentWordIndex];
-      
+        
         const storedBoardContainer = window.localStorage.getItem("boardContainer");
         if (storedBoardContainer) {
-          document.getElementById("board-container").innerHTML =
+            document.getElementById("board-container").innerHTML =
             storedBoardContainer;
         }
-      
+        
         const storedKeyboardContainer =
-          window.localStorage.getItem("keyboardContainer");
+        window.localStorage.getItem("keyboardContainer");
         if (storedKeyboardContainer) {
-          document.getElementById("keyboard-container").innerHTML =
+            document.getElementById("keyboard-container").innerHTML =
             storedKeyboardContainer;
-          addKeyboardClicks();
+            addKeyboardClicks();
         }
       
         // Calculate the available space based on guessedWords
         if (guessedWords.length > 0) {
           const filledSquares = guessedWords
-            .map((word) => word.length)
-            .reduce((a, b) => a + b, 0);
+          .map((word) => word.length)
+          .reduce((a, b) => a + b, 0);
           availableSpace = filledSquares + 1;
         }
     }
-      
-    function resetGameState() {
-      window.localStorage.removeItem("guessedWordCount");
-      window.localStorage.removeItem("guessedWords");
-      window.localStorage.removeItem("keyboardContainer");
-      window.localStorage.removeItem("boardContainer");
-      window.localStorage.removeItem("availableSpace");
-    }
-  
-    function createSquares() {
-      const gameBoard = document.getElementById("board");
-  
-      for (let i = 0; i < 30; i++) {
-        let square = document.createElement("div");
-        square.classList.add("animate__animated");
-        square.classList.add("square");
-        square.setAttribute("id", i + 1);
-        gameBoard.appendChild(square);
-      }
-    }
-  
+    
+    // Preserves the current game state to local storage.
     function preserveGameState() {
       window.localStorage.setItem("guessedWords", JSON.stringify(guessedWords));
   
@@ -168,12 +152,23 @@ const words = [
       const boardContainer = document.getElementById("board-container");
       window.localStorage.setItem("boardContainer", boardContainer.innerHTML);
     }
+
+    // Resets the game state in local storage.
+    function resetGameState() {
+      window.localStorage.removeItem("guessedWordCount");
+      window.localStorage.removeItem("guessedWords");
+      window.localStorage.removeItem("keyboardContainer");
+      window.localStorage.removeItem("boardContainer");
+      window.localStorage.removeItem("availableSpace");
+    }
   
+    /* ------------------------ game logic -------------------------------- */
     function getCurrentWordArr() {
       const numberOfGuessedWords = guessedWords.length;
       return guessedWords[numberOfGuessedWords - 1];
     }
   
+    // Updates the guessed letters with the provided letter.
     function updateGuessedLetters(letter) {
       const currentWordArr = getCurrentWordArr();
   
@@ -187,172 +182,145 @@ const words = [
       }
     }
   
+    // Updates the total number of games played.
     function updateTotalGames() {
       const totalGames = window.localStorage.getItem("totalGames") || 0;
       window.localStorage.setItem("totalGames", Number(totalGames) + 1);
     }
-  
-    function showResult() {
-      const finalResultEl = document.getElementById("final-score");
-      finalResultEl.textContent = "Wordle 1 - You win!";
-  
-      const totalWins = window.localStorage.getItem("totalWins") || 0;
-      window.localStorage.setItem("totalWins", Number(totalWins) + 1);
-  
-      const currentStreak = window.localStorage.getItem("currentStreak") || 0;
-      window.localStorage.setItem("currentStreak", Number(currentStreak) + 1);
-    }
-  
-    function showLosingResult() {
-      const finalResultEl = document.getElementById("final-score");
-      finalResultEl.textContent = `Wordle 1 - Unsuccessful Today!`;
-  
-      window.localStorage.setItem("currentStreak", 0);
-    }
-  
-    function clearBoard() {
-      for (let i = 0; i < 30; i++) {
-        let square = document.getElementById(i + 1);
-        square.textContent = "";
-      }
-  
-      const keys = document.getElementsByClassName("keyboard-button");
-  
-      for (var key of keys) {
-        key.disabled = true;
-      }
-    }
-  
+
+    // Gets the indices of a letter in an array.
     function getIndicesOfLetter(letter, arr) {
-      const indices = [];
-      let idx = arr.indexOf(letter);
-      while (idx != -1) {
-        indices.push(idx);
-        idx = arr.indexOf(letter, idx + 1);
-      }
-      return indices;
+        const indices = [];
+        let idx = arr.indexOf(letter);
+        while (idx != -1) {
+          indices.push(idx);
+          idx = arr.indexOf(letter, idx + 1);
+        }
+        return indices;
     }
-  
+
+    // Gets the CSS class for a tile based on the letter and its position.
     function getTileClass(letter, index, currentWordArr) {
-      const isCorrectLetter = currentWord
-        .toUpperCase()
-        .includes(letter.toUpperCase());
-  
-      if (!isCorrectLetter) {
+        const isCorrectLetter = currentWord
+          .toUpperCase()
+          .includes(letter.toUpperCase());
+    
+        if (!isCorrectLetter) {
+          return "incorrect-letter";
+        }
+    
+        const letterInThatPosition = currentWord.charAt(index);
+        const isCorrectPosition =
+          letter.toLowerCase() === letterInThatPosition.toLowerCase();
+    
+        if (isCorrectPosition) {
+          return "correct-letter-in-place";
+        }
+    
+        const isGuessedMoreThanOnce =
+          currentWordArr.filter((l) => l === letter).length > 1;
+    
+        if (!isGuessedMoreThanOnce) {
+          return "correct-letter";
+        }
+    
+        const existsMoreThanOnce =
+          currentWord.split("").filter((l) => l === letter).length > 1;
+    
+        // is guessed more than once and exists more than once
+        if (existsMoreThanOnce) {
+          return "correct-letter";
+        }
+    
+        const hasBeenGuessedAlready = currentWordArr.indexOf(letter) < index;
+    
+        const indices = getIndicesOfLetter(letter, currentWord.split(""));
+        const otherIndices = indices.filter((i) => i !== index);
+        const isGuessedCorrectlyLater = otherIndices.some(
+          (i) => i > index && currentWordArr[i] === letter
+        );
+    
+        if (!hasBeenGuessedAlready && !isGuessedCorrectlyLater) {
+          return "correct-letter";
+        }
+    
         return "incorrect-letter";
-      }
-  
-      const letterInThatPosition = currentWord.charAt(index);
-      const isCorrectPosition =
-        letter.toLowerCase() === letterInThatPosition.toLowerCase();
-  
-      if (isCorrectPosition) {
-        return "correct-letter-in-place";
-      }
-  
-      const isGuessedMoreThanOnce =
-        currentWordArr.filter((l) => l === letter).length > 1;
-  
-      if (!isGuessedMoreThanOnce) {
-        return "correct-letter";
-      }
-  
-      const existsMoreThanOnce =
-        currentWord.split("").filter((l) => l === letter).length > 1;
-  
-      // is guessed more than once and exists more than once
-      if (existsMoreThanOnce) {
-        return "correct-letter";
-      }
-  
-      const hasBeenGuessedAlready = currentWordArr.indexOf(letter) < index;
-  
-      const indices = getIndicesOfLetter(letter, currentWord.split(""));
-      const otherIndices = indices.filter((i) => i !== index);
-      const isGuessedCorrectlyLater = otherIndices.some(
-        (i) => i > index && currentWordArr[i] === letter
-      );
-  
-      if (!hasBeenGuessedAlready && !isGuessedCorrectlyLater) {
-        return "correct-letter";
-      }
-  
-      return "incorrect-letter";
     }
-  
+    
     function updateWordIndex() {
-      console.log({ currentWordIndex });
-      window.localStorage.setItem("currentWordIndex", Math.floor(Math.random() * words.length));
+        console.log({ currentWordIndex });
+        window.localStorage.setItem("currentWordIndex", Math.floor(Math.random() * words.length));
     }
-  
+    
+    // Handles the submission of a guessed word when pressed enter.
     async function handleSubmitWord() {
-        const currentWordArr = getCurrentWordArr();
-        const guessedWord = currentWordArr.join("");
-      
-        if (guessedWord.length !== 5) {
-          return;
-        }
-      
-        const firstLetterId = guessedWordCount * 5 + 1;
-        const interval = 200;
-      
-        currentWordArr.forEach((letter, index) => {
-          setTimeout(() => {
-            const tileClass = getTileClass(letter, index, currentWordArr);
-            if (tileClass) {
-              const letterId = firstLetterId + index;
-              const letterEl = document.getElementById(letterId);
-              letterEl.classList.add("animate__flipInX");
-              letterEl.classList.add(tileClass);
-      
-              const keyboardEl = document.querySelector(`[data-key=${letter}]`);
-              keyboardEl.classList.add(tileClass);
-            }
-      
-            if (index === 4) {
-              preserveGameState();
-            }
-          }, index * interval);
-        });
-      
-        guessedWordCount += 1;
-        window.localStorage.setItem("guessedWordCount", guessedWordCount);
-      
-        if (guessedWord === currentWord) {
-          setTimeout(() => {
-            const okSelected = window.confirm("Well done!");
-            if (okSelected) {
-              clearBoard();
-              showResult();
-              updateWordIndex();
-              updateTotalGames();
-              resetGameState();
-            }
+          const currentWordArr = getCurrentWordArr();
+          const guessedWord = currentWordArr.join("");
+        
+          if (guessedWord.length !== 5) {
             return;
-          }, 1200);
-        }
-      
-        if (guessedWords.length === 6 && guessedWord !== currentWord) {
-          setTimeout(() => {
-            const okSelected = window.confirm(
-              `Sorry, you have no more guesses! The word is "${currentWord.toUpperCase()}".`
-            );
-            if (okSelected) {
-              clearBoard();
-              showLosingResult();
-              updateWordIndex();
-              updateTotalGames();
-              resetGameState();
-            }
-            return;
-          }, 1200);
-        }
-      
-        guessedWords.push([]);
-      }
-      
-  
-    function handleDelete() {
+          }
+        
+          const firstLetterId = guessedWordCount * 5 + 1;
+          const interval = 200;
+        
+          currentWordArr.forEach((letter, index) => {
+            setTimeout(() => {
+              const tileClass = getTileClass(letter, index, currentWordArr);
+              if (tileClass) {
+                const letterId = firstLetterId + index;
+                const letterEl = document.getElementById(letterId);
+                letterEl.classList.add("animate__flipInX");
+                letterEl.classList.add(tileClass);
+        
+                const keyboardEl = document.querySelector(`[data-key=${letter}]`);
+                keyboardEl.classList.add(tileClass);
+              }
+        
+              if (index === 4) {
+                preserveGameState();
+              }
+            }, index * interval);
+          });
+        
+          guessedWordCount += 1;
+          window.localStorage.setItem("guessedWordCount", guessedWordCount);
+        
+          if (guessedWord === currentWord) {
+            setTimeout(() => {
+              const okSelected = window.confirm("Well done!");
+              if (okSelected) {
+                clearBoard();
+                showResult();
+                updateWordIndex();
+                updateTotalGames();
+                resetGameState();
+              }
+              return;
+            }, 1200);
+          }
+        
+          if (guessedWords.length === 6 && guessedWord !== currentWord) {
+            setTimeout(() => {
+              const okSelected = window.confirm(
+                `Sorry, you have no more guesses! The word is "${currentWord.toUpperCase()}".`
+              );
+              if (okSelected) {
+                clearBoard();
+                showLosingResult();
+                updateWordIndex();
+                updateTotalGames();
+                resetGameState();
+              }
+              return;
+            }, 1200);
+          }
+        
+          guessedWords.push([]);
+    }
+
+    // Handles the deletion of a letter when pressed delete.
+     function handleDelete() {
       const currentWordArr = getCurrentWordArr();
   
       if (!currentWordArr.length) {
@@ -368,7 +336,55 @@ const words = [
       lastLetterEl.innerHTML = "";
       availableSpace = availableSpace - 1;
     }
+
+    /* ------------------------ game ui -------------------------------- */
+    function createSquares() {
+        const gameBoard = document.getElementById("board");
+    
+        for (let i = 0; i < 30; i++) {
+          let square = document.createElement("div");
+          square.classList.add("animate__animated");
+          square.classList.add("square");
+          square.setAttribute("id", i + 1);
+          gameBoard.appendChild(square);
+        }
+    }
+
+    // Shows the result of the game.
+    function showResult() {
+      const finalResultEl = document.getElementById("final-score");
+      finalResultEl.textContent = "Wordle 1 - You win!";
   
+      const totalWins = window.localStorage.getItem("totalWins") || 0;
+      window.localStorage.setItem("totalWins", Number(totalWins) + 1);
+  
+      const currentStreak = window.localStorage.getItem("currentStreak") || 0;
+      window.localStorage.setItem("currentStreak", Number(currentStreak) + 1);
+    }
+
+    // Shows the result of the game when the user loses.
+    function showLosingResult() {
+      const finalResultEl = document.getElementById("final-score");
+      finalResultEl.textContent = `Wordle 1 - Unsuccessful Today!`;
+  
+      window.localStorage.setItem("currentStreak", 0);
+    }
+    
+    // Clears the game board.
+    function clearBoard() {
+      for (let i = 0; i < 30; i++) {
+        let square = document.getElementById(i + 1);
+        square.textContent = "";
+      }
+  
+      const keys = document.getElementsByClassName("keyboard-button");
+  
+      for (var key of keys) {
+        key.disabled = true;
+      }
+    }
+    
+    // Adds click events to the keyboard buttons.
     function addKeyboardClicks() {
       const keys = document.querySelectorAll(".keyboard-row button");
       for (let i = 0; i < keys.length; i++) {
@@ -389,7 +405,8 @@ const words = [
         });
       }
     }
-  
+     
+    // Initializes the help modal.
     function initHelpModal() {
       const modal = document.getElementById("help-modal");
   
@@ -416,7 +433,8 @@ const words = [
         }
       });
     }
-  
+     
+    //  Updates the stats modal with the latest stats.
     function updateStatsModal() {
       const currentStreak = window.localStorage.getItem("currentStreak");
       const totalWins = window.localStorage.getItem("totalWins");
@@ -430,7 +448,8 @@ const words = [
       document.getElementById("win-pct").textContent = winPct;
     }
   
-    function initStatsModal() {
+    // Initializes the stats modal.
+    function initStatsModal() { 
       const modal = document.getElementById("stats-modal");
   
       // Get the button that opens the modal
