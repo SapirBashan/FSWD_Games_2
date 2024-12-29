@@ -57,6 +57,7 @@
 
             // Save new user to localStorage
             users[username] = { fullname, email, password };
+            registerUser(username);
             localStorage.setItem('users', JSON.stringify(users));
 
             alert('Registration successful!');
@@ -66,6 +67,40 @@
             }, 1000);
 
             return false;
+        }
+
+        // Function to register a new user and create their local storage space
+        function registerUser(username) {
+            if (!localStorage.getItem(username)) {
+                localStorage.setItem(username, JSON.stringify({}));
+                console.log(`User "${username}" registered and storage initialized.`);
+            } else {
+                console.log(`User "${username}" already exists.`);
+            }
+        }
+
+        // Function to get data for a specific user
+        function getUserData(username, key) {
+            const userData = JSON.parse(localStorage.getItem(username));
+            if (userData && key in userData) {
+                console.log(`Data retrieved for user "${username}":`, key, userData[key]);
+                return userData[key];
+            } else {
+                console.log(`No data found for user "${username}" and key "${key}".`);
+                return null;
+            }
+        }
+
+        // Function to display all data for a user
+        function getAllUserData(username) {
+            const userData = JSON.parse(localStorage.getItem(username));
+            if (userData) {
+                console.log(`All data for user "${username}":`, userData);
+                return userData;
+            } else {
+                console.log(`No data found for user "${username}".`);
+                return null;
+            }
         }
     </script>
 </body>

@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let score = 0;
   let targetTile = 2048;
   let spawnValue = 4;
+  let username = localStorage.getItem('currentUser');
+  let key = 'top_score';
+  let wins_key = 'wins';
 
   // Set difficulty levels
   function setDifficulty(level) {
@@ -216,6 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDisplay.innerHTML = 'You WON!';
         document.removeEventListener('keyup', control);
         difficultySelect.disabled = true;
+        if (score > getUserData(username, key))
+          setUserData(username, key, score);
+        wins = getUserData(username, wins_key) + 1;
+        setUserData(username, wins_key, wins);
         setTimeout(() => setDifficulty(difficultySelect.value), 3000);
       }
     }
@@ -233,6 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
       resultDisplay.innerHTML = 'Game Over!';
       document.removeEventListener('keyup', control);
       difficultySelect.disabled = true;
+      if (score > getUserData(username, key))
+        setUserData(username, key, score);
       setTimeout(() => setDifficulty(difficultySelect.value), 3000);
     }
   }
@@ -266,4 +275,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize the game with the default difficulty
   setDifficulty(difficultySelect.value);
+
+
+  // Function to set data for a specific user
+  function setUserData(username, key, value) {
+    const userData = JSON.parse(localStorage.getItem(username)) || {};
+    userData[key] = value;
+    localStorage.setItem(username, JSON.stringify(userData));
+    console.log(`Data set for user "${username}":`, key, value);
+  }
+
+  function getUserData(username, key) {
+    const userData = JSON.parse(localStorage.getItem(username)) || {};
+    return userData[key];
+  }
+
+    // Function to extract the top 3 users by a specific key (e.g., "wins")
+  function getTopUsersByScore(scoreKey, topN = 3) {
+    let users = [];
+
+    // Iterate over all entries in localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+
+        // Skip non-user keys (if there are other non-user keys in storage)
+        try {
+            let userData = JSON.parse(localStorage.getItem(key));
+
+            // Check if the key contains valid user data and the scoreKey exists
+            if (userData && userData[scoreKey] !== undefined) {
+                users.push({ username: key, score: userData[scoreKey] });
+            }
+        } catch (e) {
+            console.warn(`Skipping invalid key: ${key}`);
+        }
+    }
+
+    // Sort users by score in descending order
+    users.sort((a, b) => b.score - a.score);
+
+    // Return the top N users
+    return users.slice(0, topN);
+  }
+  // Get the top 3 users
+  const topUsers = getTopUsersByScore("wins", 3);
+
+  // Display results in the table
+  const tableBody = document.querySelector("#topUsersTable tbody");
+  topUsers.forEach((user, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${index + 1}</td><td>${user.username}</td><td>${user.score}</td>`;
+      tableBody.appendChild(row);
+  });
 });
+
+

@@ -34,6 +34,8 @@
             // Check if user exists and password matches
             if (users[username] && users[username].password === password) {
                 document.cookie = "theme=dark; max-age=31536000"; // 1 year, saving theme
+                localStorage.setItem('currentUser', username);
+                localStorage.setItem(username, JSON.stringify({ wins: 0, top_score: 0 }));
                 window.location.href = './mainPage.html';
                 return false;
             } else {

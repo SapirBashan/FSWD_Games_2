@@ -1,112 +1,100 @@
-body{
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa; /* Light blue background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the top */
     height: 100vh;
-}
-.home{
-    background: rgb(3,92,194);
-    background: linear-gradient(180deg, rgba(3,92,194,1) 0%, rgba(177,231,255,1) 82%);
-}
-.grid-page {
-    display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: 100px 50px auto 100px;
+    padding-top: 50px; /* Add space below the fixed header */
 }
 
-.header {
-    grid-column: 1 / -1;
-    display: flex;
-}
-.logo {
-    width: max(12%, 100px);
-    height: auto;
-    border-radius: 25px;
-}
-
-.header > div:nth-child(2) {
-    margin-left: auto;
-}
-
-.GameSphere {
-    grid-column: 1 / -1;
-}
-
-
-.content-grid {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Flexible grid */
-    grid-row-gap: 4px; 
-    grid-column-gap: 30px;
-    justify-content: center;
-    align-items: center;
-}
-
-.games > figure {
-    background-color: #000;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7), 0 -4px 6px rgba(0, 0, 0, 0.7);
-    transition: 0.3s ease, box-shadow 0.3s ease;
-    width: 200px;
-    height: 360px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-figure:hover {
-    box-shadow: 0 8px 12px rgba(228, 228, 228, 0.9), 0 -8px 12px rgba(228, 228, 228, 0.9);
-}
-
-img {
-    width: 100%; /* Allow the image to scale to the container */
-    height: 250%; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure images fill the grid cell neatly */
-}
-
-
-figcaption {
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* White background for header */
+    padding: 30px; /* Padding for the header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect for the header */
     text-align: center;
-    padding: 10px;
-    background-color: #000;
-    font-size: 1rem;
 }
 
-/* General button style for links */
-.header a {
+h1 {
+    font-size: 116px;
+    color: #000;
+    text-shadow: 4px 8px 12px rgba(0, 0, 0, 0.2);
+    margin: 0; /* Remove margin for h1 */
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 60px; /* Space between nav items */
+    list-style-type: none;
+}
+
+nav ul li {
     display: inline-block;
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 16px;
-    color: white;
+}
+
+nav ul li a {
     text-decoration: none;
-    background: transparent;
-    border: 2px solid white;
-    border-radius: 20px;
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+    font-size: 40px;
+    color: #000;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-/* Hover animation */
-.header a:hover {
-    background: white;
-    color: black;
-    transform: scale(1.1); /* Slight zoom-in effect */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow for emphasis */
+nav ul li a:hover {
+    color: #1192b3; /* Change color on hover */
 }
 
+/* Styles for Home icon in the top left */
+nav .home-icon {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    font-size: 40px;
+    color: #000;
+    transition: color 0.3s ease;
+}
 
-@media screen and (max-width: 650px) {
-    .logo {
-        display: none;
-    }
-    .header{
-        margin: auto;
-    }
-    
-    .content-grid{
-        grid-template-columns: 1fr 1fr;
-    }
-    .footer{
-        margin-right: 2.5%;
-    }
+nav .home-icon:hover {
+    color: #000; /* Change color on hover */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px; /* Space between buttons */
+    margin-top: 120px; /* Add space below the fixed header */
+}
+
+.game-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 650px;
+    height: 650px;
+    border-radius: 10px;
+    box-shadow: 8px 12px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.game-button img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.game-button:hover {
+    transform: scale(1.05);
 }

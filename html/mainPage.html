@@ -3,56 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Sphere</title>
     <link rel="stylesheet" href="../css/mainPage.css">
-    <title>GameSphere</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body id="home" class="home">
-    <div class="grid-page">
-        <nav class="header">
-            <div>
-                <img src="../images/Logo.webp" alt="Cineverse Logo" class="logo">
-            </div>
-            <div><a class="View Profile" href="profile.html">View Profile</a></div>
-            <div><a class="Contact Us" href="contactus.html">Contact Us</a></div>
-            <div> <a class="logout" href="index.html">Logout</a></div>
-        </nav>
-        
-        
-        <div class="GameSphere" id="GameSphere">Game Sphere</div>
-        <div class="content-grid">
-            <div class="games">
-                <figure>
-                    <a href="wordle.html">
-                        <img src="../images/coming_soon.png" alt="Gladiator 2">
-                        <figcaption>Gladiator 2</figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="games">
-                <figure>
-                    <a href="game_3.html">
-                        <img src="../images/coming_soon.png" alt="Killers of the Flower Moon">
-                        <figcaption>Killers of the Flower Moon</figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="games">
-                <figure>
-                    <a href="stick_hero.html">
-                        <img src="../images/coming_soon.png" alt="The Holdovers">
-                        <figcaption>The Holdovers</figcaption>
-                    </a>
-                </figure>
-            </div>
-            <div class="games">
-                <figure>
-                    <img src="../images/coming_soon.png" alt="Barbie">
-                    <figcaption>Barbie</figcaption>
-                </figure>
-            </div>
-        </div>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="profile.html">View Profile</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+            <!-- Home icon positioned at top left -->
+            <a href="mainPage.html" class="home-icon"><i class="fas fa-home"></i></a>
+        </nav>
+    </header>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Game Sphere</h1>
+    <div class="container">
+        <a href="2048.html" class="game-button">
+            <img src="../images/2048.png" alt="2048">
+        </a>
+        <a href="wordle.html" class="game-button">
+            <img src="../images/wordle.png" alt="Wordle">
+        </a>
+        <a href="stick_hero.html" class="game-button">
+            <img src="../images/stick_hero.png" alt="Stick Hero">
+        </a>
+        <a href="game4.html" class="game-button">
+            <img src="../images/coming_soon.png" alt="Game 4">
+        </a>
     </div>
 </body>
 </html>
