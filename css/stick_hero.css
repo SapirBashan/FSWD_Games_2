@@ -1,0 +1,88 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#score {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+
+#introduction {
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  font-weight: 600;
+  font-size: 0.8em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  transition: opacity 2s;
+}
+
+/* Center the button container */
+#button-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 20px; /* Space between the buttons */
+}
+
+/* Style buttons */
+#hero1, #hero2 {
+  width: 120px;
+  height: 120px;
+  border-radius: 25%;
+  background-color: rgb(127, 142, 242);
+  /* add a shodow and a blue border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: 5px solid rgb(32, 49, 159);
+
+  cursor: pointer;
+  display: flex; /* Make buttons flex containers */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  overflow: hidden; /* Prevent overflow from images */
+}
+
+/* make a hover for hero1 and hero2 */
+#hero1:hover, #hero2:hover {
+  background-color: rgb(32, 49, 159);
+  border: 5px solid rgb(127, 142, 242);
+}
+
+/* Style images within buttons */
+#hero1 img, #hero2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure image fits within the button */
+  border-radius: 25%; /* Match button's border-radius */
+}
+
+#perfect {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+
+
+
