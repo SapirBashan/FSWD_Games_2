@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let key = 'top_score';
   let wins_key = 'wins';
 
+  let userWins = getUserData(username, wins_key) || 0;
+  let userScore = getUserData(username, key) || 0;
+
+  setUserData(username, wins_key, userWins);
+  setUserData(username, key, userScore);
+
   // Set difficulty levels
   function setDifficulty(level) {
     if (level === 'easy') {
