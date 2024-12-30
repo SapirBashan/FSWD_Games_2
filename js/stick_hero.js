@@ -74,37 +74,34 @@ const scoreElement = document.getElementById("score");
 resetGame();
 
 // Resets game variables and layouts but does not start the game (game starts on keypress)
+// Modify the `resetGame` function to show the high score
 function resetGame() {
-  // Reset game progress
+  // Reset game variables
   phase = "waiting";
   lastTimestamp = undefined;
   sceneOffset = 0;
   score = 0;
 
+  // // Show the high score
+  // const username = localStorage.getItem('currentUser');
+  // const highScore = username ? getUserData(username, 'stickHeroHighScore') || 0 : 0;
+  // scoreElement.innerText = `Score: ${score} | High Score: ${highScore}`;
 
   introductionElement.style.opacity = 1;
   perfectElement.style.opacity = 0;
   heroButton1.style.display = "none";
   heroButton2.style.display = "none";
-  scoreElement.innerText = score;
 
-  // The first platform is always the same
-  // x + w has to match paddingX
+  // Reset platforms and sticks
   platforms = [{ x: 50, w: 50 }];
   generatePlatform();
   generatePlatform();
   generatePlatform();
   generatePlatform();
   generatePlatform();
-
-
-  // The first stick is always the same
   sticks = [{ x: platforms[0].x + platforms[0].w, length: 0, rotation: 0 }];
-
-
   heroX = platforms[0].x + platforms[0].w - heroDistanceFromEdge;
   heroY = 0;
-
   draw();
 }
 
@@ -264,6 +261,7 @@ function animate(timestamp) {
       if (heroY > maxHeroY) {
         heroButton1.style.display = "block";
         heroButton2.style.display = "block";
+        updateHighScore(score);
         return;
       }
       turningSpeed = 4;
@@ -536,9 +534,79 @@ function getHillY(windowX, baseHeight, amplitude, stretch) {
     sineBaseY
   );
 }
-// -------------------------- uset data in local storage -------------------------
+// -------------------------- User data in local storage -------------------------
 
- // add here the localStorage functions
+// Function to set user data
+function setUserData(username, key, value) {
+  const userData = JSON.parse(localStorage.getItem(username)) || {};
+  userData[key] = value;
+  localStorage.setItem(username, JSON.stringify(userData));
+}
 
-// ----------------------------------------------------------------------------
+// Function to get user data
+function getUserData(username, key) {
+  const userData = JSON.parse(localStorage.getItem(username)) || {};
+  return userData[key];
+}
 
+// Function to update high score
+function updateHighScore(currentScore) {
+  const username = localStorage.getItem('currentUser');
+  if (!username) return; // Ensure a user is logged in
+
+  const highScore = getUserData(username, 'stickHeroHighScore') || 0;
+  if (currentScore > highScore) {
+    setUserData(username, 'stickHeroHighScore', currentScore);
+    console.log(`New high score for ${username}: ${currentScore}`);
+  }
+  updateTopScoresTable();
+}
+
+// Function to get top 3 users by high score
+function getTopUsersByHighScore(topN = 3) {
+  let users = [];
+
+  // Iterate over all entries in localStorage
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+
+    // Skip non-user keys (if there are other non-user keys in storage)
+    try {
+      let userData = JSON.parse(localStorage.getItem(key));
+
+      // Check if the key contains valid user data and the high score exists
+      if (userData && userData['stickHeroHighScore'] !== undefined) {
+        users.push({ username: key, score: userData['stickHeroHighScore'] });
+      }
+    } catch (e) {
+      console.warn(`Skipping invalid key: ${key}`);
+    }
+  }
+
+  // Sort users by score in descending order
+  users.sort((a, b) => b.score - a.score);
+
+  // Return the top N users
+  return users.slice(0, topN);
+}
+
+// Function to update the table with top 3 high scores
+function updateTopScoresTable() {
+  const topUsers = getTopUsersByHighScore();
+
+  const tableBody = document.querySelector("#topUsersTable tbody");
+  tableBody.innerHTML = ""; // Clear current table
+
+  topUsers.forEach((user, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td>${index + 1}</td><td>${user.username}</td><td>${user.score}</td>`;
+    tableBody.appendChild(row);
+  });
+}
+
+// -------------------------- End of User data functions -------------------------
+
+// Call updateTopScoresTable when the page loads to populate the top scores table
+document.addEventListener('DOMContentLoaded', () => {
+  updateTopScoresTable();
+});
