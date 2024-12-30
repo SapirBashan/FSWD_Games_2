@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+  <header>
+    <nav>
+        <ul>
+            <li><a href="profile.html">View Profile</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+        <!-- Home icon positioned at top left -->
+        <a href="mainPage.html" class="home-icon"><i class="fas fa-home"></i></a>
+    </nav>
+  </header>
+
+  <div class="profile-container">
+    <div class="user-info">
+      <h2 id="username">Loading...</h2>
+    </div>
+    <div class="profile-header">
+      <img id="profile-pic" src="default-profile.jpg" alt="Profile Picture" class="profile-pic">
+      <button id="upload-btn">Upload</button>
+    </div>
+    
+
+    
+    <div class="achievements">
+      <div class="game-achievement">
+        <h4>Stick Hero</h4>
+        <p><strong>High Score:</strong> <span id="stickHeroHighScore">Loading...</span></p>
+      </div>
+      <div class="game-achievement">
+        <h4>2048</h4>
+        <p><strong>Top Score:</strong> <span id="topScore">Loading...</span></p>
+        <p><strong>Wins:</strong> <span id="wins">Loading...</span></p>
+      </div>
+      <div class="game-achievement">
+        <h4>Wordle</h4>
+        <p><strong>Total Games:</strong> <span id="totalGames">Loading...</span></p>
+        <p><strong>Total Wins:</strong> <span id="totalWins">Loading...</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/profile.js"></script>
+</body>
+</html>
