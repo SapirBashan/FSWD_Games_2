@@ -165,9 +165,9 @@ window.requestAnimationFrame(animate);
 
 // Speed up the game as the score increases
 function speedUp(score) {
-  return Math.log(score + 1) * 0.1;  // Gradually increasing speed
-  // no speed up
-  // return 0;
+  //return Math.log(score + 1) * 0.1;  // Gradually increasing speed
+  //no speed up
+  return 0;
 }
   
 // The main game loop
