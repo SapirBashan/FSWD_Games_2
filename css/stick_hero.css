@@ -133,3 +133,48 @@ nav .home-icon {
 nav .home-icon:hover {
   color: #063977; /* Change color on hover */
 }
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  position: absolute;
+  top: 5rem;
+  left: 2rem;
+  font-size: 12px;
+  height: 100px;
+  width: auto;
+  box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Ensure rounded corners are visible */
+}
+
+th, td {
+  padding: 10px 15px; /* Better spacing */
+  border: 1px solid #858a92; /* Black separating lines */
+  text-align: center;
+  font-weight: bold; /* Makes text bold */
+}
+
+th {
+  background-color: #035CC2; /* Modern header background color */
+  color: white; /* White text for header */
+}
+
+td {
+  background-color: #f9f9f9; /* Light background for table cells */
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2; /* Alternate row color */
+}
+
+tr:hover td {
+  background-color: #e0e0e0; /* Highlight row on hover */
+}
+
+@media (max-width: 1000px) {
+  table {
+    display: none;
+  }
+}

@@ -536,5 +536,9 @@ function getHillY(windowX, baseHeight, amplitude, stretch) {
     sineBaseY
   );
 }
-// ------------------------------------------------------------------------
+// -------------------------- uset data in local storage -------------------------
+
+ // add here the localStorage functions
+
+// ----------------------------------------------------------------------------
 
