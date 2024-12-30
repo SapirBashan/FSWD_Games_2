@@ -20,54 +20,55 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #ffffff; /* White background for header */
-    padding: 30px; /* Padding for the header */
+    background-color: #ECF9FF; /* White background for header */
+    padding: 20px; /* Padding for the header */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect for the header */
     text-align: center;
 }
 
 h1 {
-    font-size: 116px;
+    font-size: 70px;
     color: #000;
     text-shadow: 4px 8px 12px rgba(0, 0, 0, 0.2);
     margin: 0; /* Remove margin for h1 */
 }
-
+  
 nav ul {
-    display: flex;
-    justify-content: center;
-    gap: 60px; /* Space between nav items */
-    list-style-type: none;
+display: flex;
+position: static;
+justify-content: center;
+gap: 60px; /* Space between nav items */
+list-style-type: none;
 }
 
 nav ul li {
-    display: inline-block;
+display: inline-block;
 }
 
 nav ul li a {
-    text-decoration: none;
-    font-size: 40px;
-    color: #000;
-    font-weight: bold;
-    transition: color 0.3s ease;
+text-decoration: none;
+font-size: 20px;
+color: #000;
+font-weight: bold;
+transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    color: #1192b3; /* Change color on hover */
+color: #063977; /* Change color on hover */
 }
 
 /* Styles for Home icon in the top left */
 nav .home-icon {
-    position: absolute;
-    top: 30px;
-    left: 20px;
-    font-size: 40px;
-    color: #000;
-    transition: color 0.3s ease;
+position: absolute;
+top: 1rem;
+left: 1rem;
+font-size: 20px;
+color: #000;
+transition: color 0.3s ease;
 }
 
 nav .home-icon:hover {
-    color: #000; /* Change color on hover */
+color: #063977; /* Change color on hover */
 }
 
 .container {
@@ -82,8 +83,8 @@ nav .home-icon:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 650px;
-    height: 650px;
+    width: 300px;
+    height: 300px;
     border-radius: 10px;
     box-shadow: 8px 12px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
