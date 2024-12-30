@@ -54,17 +54,13 @@ const words = [
 
 
   document.addEventListener("DOMContentLoaded", () => {
-    // also in local storage
-    // Get the current word index from local storage or set a new one if not set
-    let currentWordIndex = window.localStorage.getItem("currentWordIndex");
-    console.log({ currentWordIndex });
+    let username = localStorage.getItem('currentUser');
+    
+    let randomNumber = Math.floor(Math.random() * words.length);
+    let currentWordIndex = Number(getUserData(username, "currentWordIndex"))  || randomNumber;
 
-    // If no word index is stored, pick a random word and store it in local storage
-    if (currentWordIndex === null) {
-        currentWordIndex = Math.floor(Math.random() * words.length);
-        window.localStorage.setItem("currentWordIndex", currentWordIndex);
-    } else {
-        currentWordIndex = Number(currentWordIndex); // Convert to a number
+    if (currentWordIndex === randomNumber) {
+      setUserData(username, "currentWordIndex", currentWordIndex);
     }
 
     let currentWord = words[currentWordIndex];
@@ -75,7 +71,6 @@ const words = [
     let guessedWords = [[]];
 
     
-    //clearAllLocalStorage();
     initLocalStorage();
     initHelpModal();
     initStatsModal();
@@ -84,18 +79,31 @@ const words = [
     loadLocalStorage();
     
     /* ------------------------ local storage handaling -------------------------------- */
-    // Clears all data from local storage.
-    function clearAllLocalStorage() {
-        window.localStorage.clear();
-        console.log("All local storage data has been cleared.");
+    // Function to set data for a specific user
+    function setUserData(username, key, value) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      userData[key] = value;
+      localStorage.setItem(username, JSON.stringify(userData));
     }
+
+    function getUserData(username, key) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      return userData[key];
+    }
+
+    function removeUserData(username, key) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      delete userData[key];
+      localStorage.setItem(username, JSON.stringify(userData));
+    }
+
 
     // Initializes local storage with current word index.
     function initLocalStorage() {
         const storedCurrentWordIndex =
-        window.localStorage.getItem("currentWordIndex");
+        getUserData(username, "currentWordIndex");
         if (!storedCurrentWordIndex) {
-            window.localStorage.setItem("currentWordIndex", currentWordIndex);
+           setUserData(username, "currentWordIndex", currentWordIndex);
         } else {
             currentWordIndex = Number(storedCurrentWordIndex);
             currentWord = words[currentWordIndex];
@@ -104,26 +112,26 @@ const words = [
   
     function loadLocalStorage() {
         currentWordIndex =
-        Number(window.localStorage.getItem("currentWordIndex")) ||
+        Number(getUserData(username, "currentWordIndex")) ||
         currentWordIndex;
         guessedWordCount =
-        Number(window.localStorage.getItem("guessedWordCount")) ||
+        Number(getUserData(username, "guessedWordCount")) ||
         guessedWordCount;
         availableSpace =
-        Number(window.localStorage.getItem("availableSpace")) || availableSpace;
+        Number(getUserData(username, "availableSpace")) || availableSpace;
         guessedWords =
-        JSON.parse(window.localStorage.getItem("guessedWords")) || guessedWords;
+        JSON.parse(getUserData(username, "guessedWords")) || guessedWords;
         
         currentWord = words[currentWordIndex];
         
-        const storedBoardContainer = window.localStorage.getItem("boardContainer");
+        const storedBoardContainer = getUserData(username, "boardContainer");
         if (storedBoardContainer) {
             document.getElementById("board-container").innerHTML =
             storedBoardContainer;
         }
         
         const storedKeyboardContainer =
-        window.localStorage.getItem("keyboardContainer");
+        getUserData(username, "keyboardContainer");
         if (storedKeyboardContainer) {
             document.getElementById("keyboard-container").innerHTML =
             storedKeyboardContainer;
@@ -141,25 +149,25 @@ const words = [
     
     // Preserves the current game state to local storage.
     function preserveGameState() {
-      window.localStorage.setItem("guessedWords", JSON.stringify(guessedWords));
+      setUserData(username, "guessedWords", JSON.stringify(guessedWords));
   
       const keyboardContainer = document.getElementById("keyboard-container");
-      window.localStorage.setItem(
+      setUserData(username, 
         "keyboardContainer",
         keyboardContainer.innerHTML
       );
   
       const boardContainer = document.getElementById("board-container");
-      window.localStorage.setItem("boardContainer", boardContainer.innerHTML);
+      setUserData(username, "boardContainer", boardContainer.innerHTML);
     }
 
     // Resets the game state in local storage.
     function resetGameState() {
-      window.localStorage.removeItem("guessedWordCount");
-      window.localStorage.removeItem("guessedWords");
-      window.localStorage.removeItem("keyboardContainer");
-      window.localStorage.removeItem("boardContainer");
-      window.localStorage.removeItem("availableSpace");
+      removeUserData(username, "guessedWordCount");
+      removeUserData(username, "guessedWords");
+      removeUserData(username, "keyboardContainer");
+      removeUserData(username, "boardContainer");
+      removeUserData(username, "availableSpace");
     }
   
     /* ------------------------ game logic -------------------------------- */
@@ -184,8 +192,8 @@ const words = [
   
     // Updates the total number of games played.
     function updateTotalGames() {
-      const totalGames = window.localStorage.getItem("totalGames") || 0;
-      window.localStorage.setItem("totalGames", Number(totalGames) + 1);
+      const totalGames = getUserData(username, "totalGames") || 0;
+      setUserData(username, "totalGames", Number(totalGames) + 1);
     }
 
     // Gets the indices of a letter in an array.
@@ -249,7 +257,7 @@ const words = [
     
     function updateWordIndex() {
         console.log({ currentWordIndex });
-        window.localStorage.setItem("currentWordIndex", Math.floor(Math.random() * words.length));
+        setUserData(username, "currentWordIndex", Math.floor(Math.random() * words.length));
     }
     
     // Handles the submission of a guessed word when pressed enter.
@@ -284,7 +292,7 @@ const words = [
           });
         
           guessedWordCount += 1;
-          window.localStorage.setItem("guessedWordCount", guessedWordCount);
+          setUserData(username, "guessedWordCount", guessedWordCount);
         
           if (guessedWord === currentWord) {
             setTimeout(() => {
@@ -355,19 +363,14 @@ const words = [
       const finalResultEl = document.getElementById("final-score");
       finalResultEl.textContent = "Wordle 1 - You win!";
   
-      const totalWins = window.localStorage.getItem("totalWins") || 0;
-      window.localStorage.setItem("totalWins", Number(totalWins) + 1);
-  
-      const currentStreak = window.localStorage.getItem("currentStreak") || 0;
-      window.localStorage.setItem("currentStreak", Number(currentStreak) + 1);
+      const totalWins = getUserData(username, "totalWins") || 0;
+      setUserData(username, "totalWins", Number(totalWins) + 1);
     }
 
     // Shows the result of the game when the user loses.
     function showLosingResult() {
       const finalResultEl = document.getElementById("final-score");
       finalResultEl.textContent = `Wordle 1 - Unsuccessful Today!`;
-  
-      window.localStorage.setItem("currentStreak", 0);
     }
     
     // Clears the game board.
@@ -436,13 +439,11 @@ const words = [
      
     //  Updates the stats modal with the latest stats.
     function updateStatsModal() {
-      const currentStreak = window.localStorage.getItem("currentStreak");
-      const totalWins = window.localStorage.getItem("totalWins");
-      const totalGames = window.localStorage.getItem("totalGames");
+      const totalWins = getUserData(username, "totalWins");
+      const totalGames = getUserData(username,"totalGames");
   
       document.getElementById("total-played").textContent = totalGames;
       document.getElementById("total-wins").textContent = totalWins;
-      document.getElementById("current-streak").textContent = currentStreak;
   
       const winPct = Math.round((totalWins / totalGames) * 100) || 0;
       document.getElementById("win-pct").textContent = winPct;
