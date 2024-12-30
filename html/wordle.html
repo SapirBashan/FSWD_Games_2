@@ -22,11 +22,22 @@
   <body>
     <div id="container">
       <div id="game">
-        <header>
+        <header id="additional-header">
+          <nav>
+              <ul>
+                  <li><a href="profile.html">View Profile</a></li>
+                  <li><a href="index.html">Logout</a></li>
+              </ul>
+              <!-- Home icon positioned at top left -->
+              <a href="mainPage.html" class="home-icon"><i class="fas fa-home"></i></a>
+          </nav>
+      </header>
+      <header id="game-header">
           <i class="far fa-question-circle" id="help"></i>
           <h1 class="title">WORDLE</h1>
           <i class="fas fa-chart-bar" id="stats"></i>
-        </header>
+      </header>
+      
         <div id="board-container">
           <h2 id="final-score"></h2>
           <div id="board"></div>
