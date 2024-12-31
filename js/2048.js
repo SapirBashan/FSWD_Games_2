@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.textContent = score;
       }
     }
-    applyColors(); // Apply colors after combining
+    applyColors(); 
     checkForWin();
   }
 
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.textContent = score;
       }
     }
-    applyColors(); // Apply colors after combining
+    applyColors(); 
     checkForWin();
   }
 
