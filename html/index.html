@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameSphere - Login</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/index.js" charset="utf-8"></script>
+
 </head>
 <body>
     <div class="wrapper">
@@ -22,30 +24,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        // Load users from localStorage or initialize empty object
-        localStorage.setItem("Charlie", JSON.stringify({ wins: 1, top_score: 4540 }));
-
-
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-
-        function handleLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            // Check if user exists and password matches
-            if (users[username] && users[username].password === password) {
-                document.cookie = "theme=dark; max-age=31536000"; // 1 year, saving theme
-                localStorage.setItem('currentUser', username);
-                // localStorage.setItem(username, JSON.stringify({ wins: 0, top_score: 0 }));
-                window.location.href = './mainPage.html';
-                return false;
-            } else {
-                alert('Invalid username or password.');
-                return false;
-            }
-        }
-    </script>
 </body>
 </html>

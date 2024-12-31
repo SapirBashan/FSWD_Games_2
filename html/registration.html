@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameSphere - Registration</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/registration.js" charset="utf-8"></script>
+
 </head>
 <body>
     <div class="wrapper">
@@ -31,77 +33,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        // Load users from localStorage or initialize empty object
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-
-        function handleRegistration() {
-            const fullname = document.getElementById('fullname').value;
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                alert('Passwords do not match.');
-                return false;
-            }
-
-            // Check if username already exists
-            if (users[username]) {
-                alert('Username already exists.');
-                return false;
-            }
-
-            // Save new user to localStorage
-            users[username] = { fullname, email, password };
-            registerUser(username);
-            localStorage.setItem('users', JSON.stringify(users));
-
-            alert('Registration successful!');
-            // Redirect to the login page
-            setTimeout(() => {
-                window.location.href = "./index.html";
-            }, 1000);
-
-            return false;
-        }
-
-        // Function to register a new user and create their local storage space
-        function registerUser(username) {
-            if (!localStorage.getItem(username)) {
-                localStorage.setItem(username, JSON.stringify({}));
-                console.log(`User "${username}" registered and storage initialized.`);
-            } else {
-                console.log(`User "${username}" already exists.`);
-            }
-        }
-
-        // Function to get data for a specific user
-        function getUserData(username, key) {
-            const userData = JSON.parse(localStorage.getItem(username));
-            if (userData && key in userData) {
-                console.log(`Data retrieved for user "${username}":`, key, userData[key]);
-                return userData[key];
-            } else {
-                console.log(`No data found for user "${username}" and key "${key}".`);
-                return null;
-            }
-        }
-
-        // Function to display all data for a user
-        function getAllUserData(username) {
-            const userData = JSON.parse(localStorage.getItem(username));
-            if (userData) {
-                console.log(`All data for user "${username}":`, userData);
-                return userData;
-            } else {
-                console.log(`No data found for user "${username}".`);
-                return null;
-            }
-        }
-    </script>
 </body>
 </html>
