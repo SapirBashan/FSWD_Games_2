@@ -24,12 +24,6 @@ body {
   flex-direction: column;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 0.5px solid rgb(58, 58, 60);
-}
 
 #help,
 #stats {
@@ -226,61 +220,6 @@ header {
 
 .hidden {
   display: none;
-}
-
-/* Styles for the additional header */
-#additional-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #484c4d; /* Light background color */
-  padding: 0; /* Remove padding */
-  height: 40px; /* Set a fixed height for consistent alignment */
-  display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  box-shadow: 0 2px 6px rgb(199, 197, 197); /* Subtle shadow */
-  z-index: 1000; /* Ensure it is above other elements */
-}
-
-#additional-header nav ul {
-  display: flex;
-  gap: 60px; /* Space between navigation items */
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#additional-header nav ul li {
-  display: inline-block;
-}
-
-#additional-header nav ul li a {
-  text-decoration: none;
-  font-size: 20px;
-  color: #ffffff;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-#additional-header nav ul li a:hover {
-  color: #B1E7FF; /* Change color on hover */
-}
-
-/* Home icon styling */
-#additional-header nav .home-icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%); /* Center vertically */
-  font-size: 20px;
-  color: #ffffff;
-  transition: color 0.3s ease;
-}
-
-#additional-header nav .home-icon:hover {
-  color: #B1E7FF; /* Change color on hover */
 }
 
 /* Adjust the game header position */

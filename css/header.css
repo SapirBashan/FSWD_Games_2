@@ -1,0 +1,62 @@
+/* Styles for the additional header */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid rgb(58, 58, 60);
+}
+
+#additional-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #484c4d; 
+    padding: 0; 
+    height: 40px;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    box-shadow: 0 2px 6px rgb(199, 197, 197); 
+    z-index: 1000; 
+  }
+  
+  #additional-header nav ul {
+    display: flex;
+    gap: 60px; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #additional-header nav ul li {
+    display: inline-block;
+  }
+  
+  #additional-header nav ul li a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  #additional-header nav ul li a:hover {
+    color: #B1E7FF; 
+  }
+  
+  /* Home icon styling */
+  #additional-header nav .home-icon {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    font-size: 20px;
+    color: #FFF;
+    transition: color 0.3s ease;
+  }
+  
+  #additional-header nav .home-icon:hover {
+    color: #B1E7FF; 
+  }
+  

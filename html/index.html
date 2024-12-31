@@ -25,6 +25,9 @@
 
     <script>
         // Load users from localStorage or initialize empty object
+        localStorage.setItem("Charlie", JSON.stringify({ wins: 1, top_score: 4540 }));
+
+
         const users = JSON.parse(localStorage.getItem('users')) || {};
 
         function handleLogin() {

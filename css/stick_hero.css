@@ -84,55 +84,6 @@ body {
   transition: opacity 2s;
 }
 
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #ECF9FF; /* White background for header */
-  padding: 2px; /* Padding for the header */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect for the header */
-  text-align: center;
-}
-
-
-nav ul {
-  display: flex;
-  position: static;
-  justify-content: center;
-  gap: 60px; /* Space between nav items */
-  list-style-type: none;
-}
-
-nav ul li {
-  display: inline-block;
-}
-
-nav ul li a {
-  text-decoration: none;
-  font-size: 20px;
-  color: #000;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #063977; /* Change color on hover */
-}
-
-/* Styles for Home icon in the top left */
-nav .home-icon {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 20px;
-  color: #000;
-  transition: color 0.3s ease;
-}
-
-nav .home-icon:hover {
-  color: #063977; /* Change color on hover */
-}
 
 table {
   border-collapse: separate;
