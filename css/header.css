@@ -4,8 +4,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 0.5px solid rgb(58, 58, 60);
-}
+  }
 
 #additional-header {
     position: fixed;
@@ -60,3 +59,7 @@ header {
     color: #B1E7FF; 
   }
   
+  /* text hover  */
+  #additional-header nav ul li a:hover {
+    color: #B1E7FF; 
+  }
