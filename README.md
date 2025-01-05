@@ -1,4 +1,4 @@
-## This is a game platform built with Java Script HTML and CSS
+![image-2](https://github.com/user-attachments/assets/ad7311ed-cb03-41ad-8d95-bdedba479ad5)## This is a game platform built with Java Script HTML and CSS
 ---
 
 ## Login and Registration System
@@ -25,7 +25,8 @@ The login and registration system enables secure user authentication and onboard
 - **Logic:** Client-side validation and user state management.
 
 ---
-![alt text](../FSWD_Games_2/images/image.png) 
+![image](https://github.com/user-attachments/assets/18a71df9-3d12-436e-8fa6-a90d8df7e123)
+
 
 ## Home Page and Header
 
@@ -51,7 +52,8 @@ The **Home Page** serves as the central hub, offering access to three games and 
     - `localStorage` handles user session state.
 - **Dynamic Components:** JavaScript functions like `greetUser()` ensure tailored messages based on user actions.
 
-![alt text](../FSWD_Games_2/images/image-2.png)
+![image-2](https://github.com/user-attachments/assets/d0df9382-7565-4389-bf61-794e3147fa3f)
+
 ---
 
 ## 2048 Game Online
@@ -88,7 +90,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
 - **Persistent Data:** Scores and wins saved per user in `localStorage`.
 - **Customizable Difficulty:** Adjusts target tile and spawn values.
 
-![alt text](../FSWD_Games_2/images/image-3.png)
+![image-3](https://github.com/user-attachments/assets/0a27cb7e-7fee-4b00-90e3-0e4c0cc4718e)
 ---
 
 ## Wordle Game
@@ -105,7 +107,7 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **User Stats:** Track wins, total games played, and personal game history.
 - **Technologies:** JavaScript (DOM manipulation, local storage, event handling).
 
-![alt text](../FSWD_Games_2/images/image-4.png)
+![image-4](https://github.com/user-attachments/assets/75b465f9-43c6-47ef-ae21-c001ff534ece)
 ---
 
 ## Stick Hero Game
@@ -124,7 +126,7 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **Scoring:** The game increments scores based on perfect hits and overall gameplay progress.
 - **User Data Management:** High scores are stored and managed using `localStorage` for a personalized gaming experience.
 
-![alt text](../FSWD_Games_2/images/image-5.png)
+![image-5](https://github.com/user-attachments/assets/0e220670-9302-4e1a-8907-e477de62bd73)
 ---
 
 ## User Profile Page
@@ -140,8 +142,8 @@ This page displays user achievements and profile details by retrieving data from
 
 - **Load User Data:** Fetches user data from `localStorage` and updates the profile page.
 - **Profile Picture Upload:** Enables users to update their profile picture with a new URL.
+![image-6](https://github.com/user-attachments/assets/017ecff6-e476-4196-8941-5d0a30e27e2f)
 
-![alt text](../FSWD_Games_2/images/image-6.png)
 
 ### Full Website Readme
 
