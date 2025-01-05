@@ -153,5 +153,5 @@ This project is a full-stack web application designed to provide a seamless user
 
 #### Collaborators:
 
-*   **Spir Bashan** -- link to GitHub profile
-*   **Yuval Yefet** -- link to GitHub profile
+*   **Spir Bashan** -- https://github.com/SapirBashan
+*   **Yuval Yefet** -- https://github.com/yuyefet
