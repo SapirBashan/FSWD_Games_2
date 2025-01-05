@@ -25,7 +25,7 @@ The login and registration system enables secure user authentication and onboard
 - **Logic:** Client-side validation and user state management.
 
 ---
-![alt text](image.png) 
+![alt text](../FSWD_Games_2/images/image.png) 
 
 ## Home Page and Header
 
@@ -51,7 +51,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
     - `localStorage` handles user session state.
 - **Dynamic Components:** JavaScript functions like `greetUser()` ensure tailored messages based on user actions.
 
-![alt text](image-2.png)
+![alt text](../FSWD_Games_2/images/image-2.png)
 ---
 
 ## 2048 Game Online
@@ -88,7 +88,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
 - **Persistent Data:** Scores and wins saved per user in `localStorage`.
 - **Customizable Difficulty:** Adjusts target tile and spawn values.
 
-![alt text](image-3.png)
+![alt text](../FSWD_Games_2/images/image-3.png)
 ---
 
 ## Wordle Game
@@ -104,7 +104,8 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **Multiple Game Modes:** Supports different levels of difficulty with varying word lengths.
 - **User Stats:** Track wins, total games played, and personal game history.
 - **Technologies:** JavaScript (DOM manipulation, local storage, event handling).
-![alt text](image-4.png)
+
+![alt text](../FSWD_Games_2/images/image-4.png)
 ---
 
 ## Stick Hero Game
@@ -122,7 +123,8 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **Platforms & Sticks:** Platforms are dynamically generated and sticks are used for hero interactions.
 - **Scoring:** The game increments scores based on perfect hits and overall gameplay progress.
 - **User Data Management:** High scores are stored and managed using `localStorage` for a personalized gaming experience.
-![alt text](image-5.png)
+
+![alt text](../FSWD_Games_2/images/image-5.png)
 ---
 
 ## User Profile Page
@@ -138,7 +140,8 @@ This page displays user achievements and profile details by retrieving data from
 
 - **Load User Data:** Fetches user data from `localStorage` and updates the profile page.
 - **Profile Picture Upload:** Enables users to update their profile picture with a new URL.
-![alt text](image-6.png)
+
+![alt text](../FSWD_Games_2/images/image-6.png)
 
 ### Full Website Readme
 
