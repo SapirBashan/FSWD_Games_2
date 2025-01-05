@@ -1,4 +1,4 @@
-![image-2](https://github.com/user-attachments/assets/ad7311ed-cb03-41ad-8d95-bdedba479ad5)## This is a game platform built with Java Script HTML and CSS
+## This is a game platform built with Java Script HTML and CSS
 ---
 
 ## Login and Registration System
