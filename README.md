@@ -143,7 +143,7 @@ This page displays user achievements and profile details by retrieving data from
 
 - **Load User Data:** Fetches user data from `localStorage` and updates the profile page.
 - **Profile Picture Upload:** Enables users to update their profile picture with a new URL.
-![image-6](https://github.com/user-attachments/assets/017ecff6-e476-4196-8941-5d0a30e27e2f)
+![image](https://github.com/user-attachments/assets/3ef79354-a733-4595-9a94-472a26b83f95)
 
 
 ### Full Website Readme
