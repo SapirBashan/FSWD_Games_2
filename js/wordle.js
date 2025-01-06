@@ -78,96 +78,109 @@ const words = [
     addKeyboardClicks();
     loadLocalStorage();
     
-    /* ------------------------ local storage handaling -------------------------------- */
-    // Function to set data for a specific user
-    function setUserData(username, key, value) {
-      const userData = JSON.parse(localStorage.getItem(username)) || {};
-      userData[key] = value;
-      localStorage.setItem(username, JSON.stringify(userData));
-    }
-
-    function getUserData(username, key) {
-      const userData = JSON.parse(localStorage.getItem(username)) || {};
-      return userData[key];
-    }
-
-    function removeUserData(username, key) {
-      const userData = JSON.parse(localStorage.getItem(username)) || {};
-      delete userData[key];
-      localStorage.setItem(username, JSON.stringify(userData));
-    }
-
-
-    // Initializes local storage with current word index.
-    function initLocalStorage() {
-        const storedCurrentWordIndex =
-        getUserData(username, "currentWordIndex");
-        if (!storedCurrentWordIndex) {
-           setUserData(username, "currentWordIndex", currentWordIndex);
-        } else {
-            currentWordIndex = Number(storedCurrentWordIndex);
-            currentWord = words[currentWordIndex];
-        }
-    }
-  
-    function loadLocalStorage() {
-        currentWordIndex =
-        Number(getUserData(username, "currentWordIndex")) ||
-        currentWordIndex;
-        guessedWordCount =
-        Number(getUserData(username, "guessedWordCount")) ||
-        guessedWordCount;
-        availableSpace =
-        Number(getUserData(username, "availableSpace")) || availableSpace;
-        guessedWords =
-        JSON.parse(getUserData(username, "guessedWords")) || guessedWords;
-        
-        currentWord = words[currentWordIndex];
-        
-        const storedBoardContainer = getUserData(username, "boardContainer");
-        if (storedBoardContainer) {
-            document.getElementById("board-container").innerHTML =
-            storedBoardContainer;
-        }
-        
-        const storedKeyboardContainer =
-        getUserData(username, "keyboardContainer");
-        if (storedKeyboardContainer) {
-            document.getElementById("keyboard-container").innerHTML =
-            storedKeyboardContainer;
-            addKeyboardClicks();
-        }
+    /* ------------------------ game ui -------------------------------- */
+    function createSquares() {
+          const gameBoard = document.getElementById("board");
       
-        // Calculate the available space based on guessedWords
-        if (guessedWords.length > 0) {
-          const filledSquares = guessedWords
-          .map((word) => word.length)
-          .reduce((a, b) => a + b, 0);
-          availableSpace = filledSquares + 1;
-        }
+          for (let i = 0; i < 30; i++) {
+            let square = document.createElement("div");
+            square.classList.add("animate__animated");
+            square.classList.add("square");
+            square.setAttribute("id", i + 1);
+            gameBoard.appendChild(square);
+          }
+    }
+
+    // Adds click events to the keyboard buttons.
+    function addKeyboardClicks() {
+      const keys = document.querySelectorAll(".keyboard-row button");
+      for (let i = 0; i < keys.length; i++) {
+        keys[i].addEventListener("click", ({ target }) => {
+          const key = target.getAttribute("data-key");
+  
+          if (key === "enter") {
+            handleSubmitWord();
+            return;
+          }
+  
+          if (key === "del") {
+            handleDelete();
+            return;
+          }
+  
+          updateGuessedLetters(key);
+        });
+      }
+    }
+          
+
+    // Shows the result of the game.
+    function showResult() {
+      const finalResultEl = document.getElementById("final-score");
+      finalResultEl.textContent = "Wordle 1 - You win!";
+  
+      const totalWins = getUserData(username, "totalWins") || 0;
+      setUserData(username, "totalWins", Number(totalWins) + 1);
+    }
+
+    // Shows the result of the game when the user loses.
+    function showLosingResult() {
+      const finalResultEl = document.getElementById("final-score");
+      finalResultEl.textContent = `Wordle 1 - Unsuccessful Today!`;
     }
     
-    // Preserves the current game state to local storage.
-    function preserveGameState() {
-      setUserData(username, "guessedWords", JSON.stringify(guessedWords));
+    // Clears the game board.
+    function clearBoard() {
+      for (let i = 0; i < 30; i++) {
+        let square = document.getElementById(i + 1);
+        square.textContent = "";
+      }
   
-      const keyboardContainer = document.getElementById("keyboard-container");
-      setUserData(username, 
-        "keyboardContainer",
-        keyboardContainer.innerHTML
-      );
+      const keys = document.getElementsByClassName("keyboard-button");
   
-      const boardContainer = document.getElementById("board-container");
-      setUserData(username, "boardContainer", boardContainer.innerHTML);
+      for (var key of keys) {
+        key.disabled = true;
+      }
     }
-
-    // Resets the game state in local storage.
-    function resetGameState() {
-      removeUserData(username, "guessedWordCount");
-      removeUserData(username, "guessedWords");
-      removeUserData(username, "keyboardContainer");
-      removeUserData(username, "boardContainer");
-      removeUserData(username, "availableSpace");
+    
+    // Initializes the help modal.
+    function initHelpModal() {
+      const modal = document.getElementById("help-modal");
+  
+      // Get the button that opens the modal
+      const btn = document.getElementById("help");
+  
+      // Get the <span> element that closes the modal
+      const span = document.getElementById("close-help");
+  
+      // When the user clicks on the button, open the modal
+      btn.addEventListener("click", function () {
+        modal.style.display = "block";
+      });
+  
+      // When the user clicks on <span> (x), close the modal
+      span.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+  
+      // When the user clicks anywhere outside of the modal, close it
+      window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      });
+    }
+      
+    //  Updates the stats modal with the latest stats.
+    function updateStatsModal() {
+      const totalWins = getUserData(username, "totalWins");
+      const totalGames = getUserData(username,"totalGames");
+  
+      document.getElementById("total-played").textContent = totalGames;
+      document.getElementById("total-wins").textContent = totalWins;
+  
+      const winPct = Math.round((totalWins / totalGames) * 100) || 0;
+      document.getElementById("win-pct").textContent = winPct;
     }
   
     /* ------------------------ game logic -------------------------------- */
@@ -344,110 +357,6 @@ const words = [
       lastLetterEl.innerHTML = "";
       availableSpace = availableSpace - 1;
     }
-
-    /* ------------------------ game ui -------------------------------- */
-    function createSquares() {
-        const gameBoard = document.getElementById("board");
-    
-        for (let i = 0; i < 30; i++) {
-          let square = document.createElement("div");
-          square.classList.add("animate__animated");
-          square.classList.add("square");
-          square.setAttribute("id", i + 1);
-          gameBoard.appendChild(square);
-        }
-    }
-
-    // Shows the result of the game.
-    function showResult() {
-      const finalResultEl = document.getElementById("final-score");
-      finalResultEl.textContent = "Wordle 1 - You win!";
-  
-      const totalWins = getUserData(username, "totalWins") || 0;
-      setUserData(username, "totalWins", Number(totalWins) + 1);
-    }
-
-    // Shows the result of the game when the user loses.
-    function showLosingResult() {
-      const finalResultEl = document.getElementById("final-score");
-      finalResultEl.textContent = `Wordle 1 - Unsuccessful Today!`;
-    }
-    
-    // Clears the game board.
-    function clearBoard() {
-      for (let i = 0; i < 30; i++) {
-        let square = document.getElementById(i + 1);
-        square.textContent = "";
-      }
-  
-      const keys = document.getElementsByClassName("keyboard-button");
-  
-      for (var key of keys) {
-        key.disabled = true;
-      }
-    }
-    
-    // Adds click events to the keyboard buttons.
-    function addKeyboardClicks() {
-      const keys = document.querySelectorAll(".keyboard-row button");
-      for (let i = 0; i < keys.length; i++) {
-        keys[i].addEventListener("click", ({ target }) => {
-          const key = target.getAttribute("data-key");
-  
-          if (key === "enter") {
-            handleSubmitWord();
-            return;
-          }
-  
-          if (key === "del") {
-            handleDelete();
-            return;
-          }
-  
-          updateGuessedLetters(key);
-        });
-      }
-    }
-     
-    // Initializes the help modal.
-    function initHelpModal() {
-      const modal = document.getElementById("help-modal");
-  
-      // Get the button that opens the modal
-      const btn = document.getElementById("help");
-  
-      // Get the <span> element that closes the modal
-      const span = document.getElementById("close-help");
-  
-      // When the user clicks on the button, open the modal
-      btn.addEventListener("click", function () {
-        modal.style.display = "block";
-      });
-  
-      // When the user clicks on <span> (x), close the modal
-      span.addEventListener("click", function () {
-        modal.style.display = "none";
-      });
-  
-      // When the user clicks anywhere outside of the modal, close it
-      window.addEventListener("click", function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      });
-    }
-     
-    //  Updates the stats modal with the latest stats.
-    function updateStatsModal() {
-      const totalWins = getUserData(username, "totalWins");
-      const totalGames = getUserData(username,"totalGames");
-  
-      document.getElementById("total-played").textContent = totalGames;
-      document.getElementById("total-wins").textContent = totalWins;
-  
-      const winPct = Math.round((totalWins / totalGames) * 100) || 0;
-      document.getElementById("win-pct").textContent = winPct;
-    }
   
     // Initializes the stats modal.
     function initStatsModal() { 
@@ -476,5 +385,96 @@ const words = [
           modal.style.display = "none";
         }
       });
+    }
+
+    /* ------------------------ local storage handaling -------------------------------- */
+    // Function to set data for a specific user
+    function setUserData(username, key, value) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      userData[key] = value;
+      localStorage.setItem(username, JSON.stringify(userData));
+    }
+
+    function getUserData(username, key) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      return userData[key];
+    }
+
+    function removeUserData(username, key) {
+      const userData = JSON.parse(localStorage.getItem(username)) || {};
+      delete userData[key];
+      localStorage.setItem(username, JSON.stringify(userData));
+    }
+
+    // Initializes local storage with current word index.
+    function initLocalStorage() {
+        const storedCurrentWordIndex =
+        getUserData(username, "currentWordIndex");
+        if (!storedCurrentWordIndex) {
+           setUserData(username, "currentWordIndex", currentWordIndex);
+        } else {
+            currentWordIndex = Number(storedCurrentWordIndex);
+            currentWord = words[currentWordIndex];
+        }
+    }
+  
+    function loadLocalStorage() {
+        currentWordIndex =
+        Number(getUserData(username, "currentWordIndex")) ||
+        currentWordIndex;
+        guessedWordCount =
+        Number(getUserData(username, "guessedWordCount")) ||
+        guessedWordCount;
+        availableSpace =
+        Number(getUserData(username, "availableSpace")) || availableSpace;
+        guessedWords =
+        JSON.parse(getUserData(username, "guessedWords")) || guessedWords;
+        
+        currentWord = words[currentWordIndex];
+        
+        const storedBoardContainer = getUserData(username, "boardContainer");
+        if (storedBoardContainer) {
+            document.getElementById("board-container").innerHTML =
+            storedBoardContainer;
+        }
+        
+        const storedKeyboardContainer =
+        getUserData(username, "keyboardContainer");
+        if (storedKeyboardContainer) {
+            document.getElementById("keyboard-container").innerHTML =
+            storedKeyboardContainer;
+            addKeyboardClicks();
+        }
+      
+        // Calculate the available space based on guessedWords
+        if (guessedWords.length > 0) {
+          const filledSquares = guessedWords
+          .map((word) => word.length)
+          .reduce((a, b) => a + b, 0);
+          availableSpace = filledSquares + 1;
+        }
+    }
+    
+    // Preserves the current game state to local storage.
+    function preserveGameState() {
+      setUserData(username, "guessedWords", JSON.stringify(guessedWords));
+  
+      const keyboardContainer = document.getElementById("keyboard-container");
+      setUserData(username, 
+        "keyboardContainer",
+        keyboardContainer.innerHTML
+      );
+  
+      const boardContainer = document.getElementById("board-container");
+      setUserData(username, "boardContainer", boardContainer.innerHTML);
+    }
+
+    // Resets the game state in local storage.
+    function resetGameState() {
+      removeUserData(username, "guessedWordCount");
+      removeUserData(username, "guessedWords");
+      removeUserData(username, "keyboardContainer");
+      removeUserData(username, "boardContainer");
+      removeUserData(username, "availableSpace");
     }
   });

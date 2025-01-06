@@ -2,7 +2,7 @@
 // Extend the base functionality of JavaScript
 Array.prototype.last = function () {
     return this[this.length - 1];
-  };
+};
 
 // A sinus function that acceps degrees instead of radians
 Math.sinus = function (degree) {
@@ -56,7 +56,7 @@ const canvas = document.getElementById("game");
 canvas.width = window.innerWidth; // Make the Canvas full screen
 canvas.height = window.innerHeight;
 
-let drawHero = drawHero1;
+let drawHero = drawHero2;
 
 const ctx = canvas.getContext("2d");
 
@@ -66,7 +66,9 @@ const heroButton1 = document.getElementById("hero1");
 const heroButton2 = document.getElementById("hero2");
 const scoreElement = document.getElementById("score");
 
-
+if(getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5){
+  heroButton1.style.background = "grey";
+}
 
 
 // --------------------------- Game logic -------------------------------------
@@ -99,6 +101,8 @@ function resetGame() {
   generatePlatform();
   generatePlatform();
   generatePlatform();
+  generatePlatform();
+
   sticks = [{ x: platforms[0].x + platforms[0].w, length: 0, rotation: 0 }];
   heroX = platforms[0].x + platforms[0].w - heroDistanceFromEdge;
   heroY = 0;
@@ -129,48 +133,7 @@ function generatePlatform() {
 
 resetGame();
 
-// If space was pressed restart the game
-window.addEventListener("keydown", function (event) {
-  if (event.key == " ") {
-    event.preventDefault();
-    resetGame();
-    return;
-  }
-});
-
-window.addEventListener("mousedown", function (event) {
-  if (phase == "waiting") {
-    lastTimestamp = undefined;
-    introductionElement.style.opacity = 0;
-    phase = "stretching";
-    window.requestAnimationFrame(animate);
-  }
-
-});
-
-window.addEventListener("mouseup", function (event) {
-  if (phase == "stretching") {
-    phase = "turning";
-  }
-});
-
-window.addEventListener("resize", function (event) {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  draw();
-});
-
-// Start the game loop (it will stop itself when the game is over)
-window.requestAnimationFrame(animate);
-
-// Speed up the game as the score increases
-function speedUp(score) {
-  //return Math.log(score + 1) * 0.1;  // Gradually increasing speed
-  //no speed up
-  return 0;
-}
-  
-// The main game loop
+// The main game loop that runs the game logic and draws the game
 function animate(timestamp) {
   if (!lastTimestamp) {
     lastTimestamp = timestamp;
@@ -262,6 +225,9 @@ function animate(timestamp) {
         heroButton1.style.display = "block";
         heroButton2.style.display = "block";
         updateHighScore(score);
+        if(score >= 5){
+          heroButton1.style.background = "rgb(127, 142, 242)";
+        }
         return;
       }
       turningSpeed = 4;
@@ -277,6 +243,48 @@ function animate(timestamp) {
   window.requestAnimationFrame(animate);
 
   lastTimestamp = timestamp;
+}
+
+// If space was pressed restart the game
+window.addEventListener("keydown", function (event) {
+  if (event.key == " ") {
+    event.preventDefault();
+    resetGame();
+    return;
+  }
+});
+
+// change from stage waiting to stretching when the mouse is clicked
+window.addEventListener("mousedown", function (event) {
+  if (phase == "waiting") {
+    lastTimestamp = undefined;
+    introductionElement.style.opacity = 0;
+    phase = "stretching";
+    window.requestAnimationFrame(animate);
+  }
+
+});
+
+window.addEventListener("mouseup", function (event) {
+  if (phase == "stretching") {
+    phase = "turning";
+  }
+});
+
+window.addEventListener("resize", function (event) {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  draw();
+});
+
+// Start the game loop (it will stop itself when the game is over)
+window.requestAnimationFrame(animate);
+
+// Speed up the game as the score increases
+function speedUp(score) {
+  //return Math.log(score + 1) * 0.1;  // Gradually increasing speed
+  //no speed up
+  return 0;
 }
 
 // Returns the platform the stick hit (if it didn't hit any stick then return undefined)
@@ -304,7 +312,13 @@ function thePlatformTheStickHits() {
 
 heroButton1.addEventListener("click", function (event) {
   event.preventDefault();
-  drawHero = drawHero1;
+  // if the users high score is less than 10 send a message to the user that the hero is locked
+  if (getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5) {
+    alert("You need to score at least 5 points to unlock this hero");
+  } else {
+     drawHero = drawHero1;
+    }
+  
   resetGame();
   heroButton1.style.display = "none";
 });
@@ -322,7 +336,12 @@ function draw() {
   ctx.save();
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-  drawBackground();
+  if (drawHero == drawHero1) {
+        drawBackground("#FAA307","#FFBA08","#6A040F","#D00000");
+    }
+    else if (drawHero == drawHero2) {
+        drawBackground("#48CAE4","#ADE8F4","#023E8A","#03045E");
+  }
 
   // Center main canvas area to the middle of the screen
   ctx.translate(
@@ -343,6 +362,9 @@ function draw() {
   ctx.restore();
 }
 
+// this function draws the platforms the differns from the funciton generatePlatform is
+// that it draws the perfect area on the platform if the hero did not yet reach the platform 
+// and the perfect area is not yet reached 
 function drawPlatforms() {
   platforms.forEach(({ x, w }) => {
     // Draw platform
@@ -465,6 +487,8 @@ function drawHero2() {
   ctx.restore();
 }
 
+// this function draws a rounded rectangle with the given parameters
+// the roun
 function drawRoundedRect(x, y, width, height, radius) {
   ctx.beginPath();
   ctx.moveTo(x, y + radius);
@@ -499,17 +523,17 @@ function drawSticks() {
   });
 }
 
-function drawBackground() {
+function drawBackground(color1,color2,color3,color4) {
   // Draw sky
   var gradient = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
-  gradient.addColorStop(0, "#76D5FE");
-  gradient.addColorStop(1, "#ECF9FF");
+  gradient.addColorStop(0, color1);
+  gradient.addColorStop(1, color2);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
   // Draw hills
-  drawHill(hill1BaseHeight, hill1Amplitude, hill1Stretch, "#00B0FC");
-  drawHill(hill2BaseHeight, hill2Amplitude, hill2Stretch, "#035CC2");
+  drawHill(hill1BaseHeight, hill1Amplitude, hill1Stretch, color3);
+  drawHill(hill2BaseHeight, hill2Amplitude, hill2Stretch, color4);
 
 }
 
