@@ -28,7 +28,7 @@ function handleRegistration() {
     alert('Registration successful!');
     // Redirect to the login page
     setTimeout(() => {
-        window.location.href = "./index.html";
+        window.location.href = "../index.html";
     }, 500);
 
     return false;

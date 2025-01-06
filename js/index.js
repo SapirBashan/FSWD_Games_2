@@ -18,7 +18,7 @@ function handleLogin() {
         localStorage.setItem('indexToMain', 'true');
         loginAttempts[username] = 0; // Reset the counter on successful login
         localStorage.setItem('loginAttempts', JSON.stringify(loginAttempts));
-        window.location.href = './mainPage.html';
+        window.location.href = 'html/mainPage.html';
         return false;
     } else {
         loginAttempts[username] = (loginAttempts[username] || 0) + 1;
