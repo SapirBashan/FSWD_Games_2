@@ -25,7 +25,9 @@ The login and registration system enables secure user authentication and onboard
 - **Logic:** Client-side validation and user state management.
 
 ---
-![alt text](../FSWD_Games_2/images/image.png) 
+![image](https://github.com/user-attachments/assets/3815f036-a06b-4ec9-810b-e81853a95117)
+
+
 
 ## Home Page and Header
 
@@ -51,7 +53,9 @@ The **Home Page** serves as the central hub, offering access to three games and 
     - `localStorage` handles user session state.
 - **Dynamic Components:** JavaScript functions like `greetUser()` ensure tailored messages based on user actions.
 
-![alt text](../FSWD_Games_2/images/image-2.png)
+![image](https://github.com/user-attachments/assets/79f17f6a-c506-46ab-a172-e1bf0e11fd57)
+
+
 ---
 
 ## 2048 Game Online
@@ -88,7 +92,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
 - **Persistent Data:** Scores and wins saved per user in `localStorage`.
 - **Customizable Difficulty:** Adjusts target tile and spawn values.
 
-![alt text](../FSWD_Games_2/images/image-3.png)
+![image-3](https://github.com/user-attachments/assets/0a27cb7e-7fee-4b00-90e3-0e4c0cc4718e)
 ---
 
 ## Wordle Game
@@ -105,7 +109,7 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **User Stats:** Track wins, total games played, and personal game history.
 - **Technologies:** JavaScript (DOM manipulation, local storage, event handling).
 
-![alt text](../FSWD_Games_2/images/image-4.png)
+![image-4](https://github.com/user-attachments/assets/75b465f9-43c6-47ef-ae21-c001ff534ece)
 ---
 
 ## Stick Hero Game
@@ -124,7 +128,7 @@ Wordle is a fun and interactive word-guessing game designed to challenge your vo
 - **Scoring:** The game increments scores based on perfect hits and overall gameplay progress.
 - **User Data Management:** High scores are stored and managed using `localStorage` for a personalized gaming experience.
 
-![alt text](../FSWD_Games_2/images/image-5.png)
+![image-5](https://github.com/user-attachments/assets/0e220670-9302-4e1a-8907-e477de62bd73)
 ---
 
 ## User Profile Page
@@ -140,8 +144,9 @@ This page displays user achievements and profile details by retrieving data from
 
 - **Load User Data:** Fetches user data from `localStorage` and updates the profile page.
 - **Profile Picture Upload:** Enables users to update their profile picture with a new URL.
+  
+![image](https://github.com/user-attachments/assets/eedd7cf7-84d7-4224-bef5-7fe419ed8066)
 
-![alt text](../FSWD_Games_2/images/image-6.png)
 
 ### Full Website Readme
 
@@ -151,5 +156,5 @@ This project is a full-stack web application designed to provide a seamless user
 
 #### Collaborators:
 
-*   **Spir Bashan** -- link to GitHub profile
-*   **Yuval Yefet** -- link to GitHub profile
+*   **Spir Bashan** -- https://github.com/SapirBashan
+*   **Yuval Yefet** -- https://github.com/yuyefet
