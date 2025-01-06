@@ -53,7 +53,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
     - `localStorage` handles user session state.
 - **Dynamic Components:** JavaScript functions like `greetUser()` ensure tailored messages based on user actions.
 
-![image](https://github.com/user-attachments/assets/a1386d14-767e-4baf-8b7e-abc8a97aaf01)
+![image](https://github.com/user-attachments/assets/5cab7c0f-5197-4d01-a5ad-eba7dad68199)
 
 
 ---
