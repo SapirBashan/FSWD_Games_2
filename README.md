@@ -25,7 +25,7 @@ The login and registration system enables secure user authentication and onboard
 - **Logic:** Client-side validation and user state management.
 
 ---
-![image](https://github.com/user-attachments/assets/c88bcdf2-5a91-4fb1-941c-37c25c476d16)
+![image](https://github.com/user-attachments/assets/3815f036-a06b-4ec9-810b-e81853a95117)
 
 
 
@@ -53,7 +53,7 @@ The **Home Page** serves as the central hub, offering access to three games and 
     - `localStorage` handles user session state.
 - **Dynamic Components:** JavaScript functions like `greetUser()` ensure tailored messages based on user actions.
 
-![image](https://github.com/user-attachments/assets/5cab7c0f-5197-4d01-a5ad-eba7dad68199)
+![image](https://github.com/user-attachments/assets/79f17f6a-c506-46ab-a172-e1bf0e11fd57)
 
 
 ---
@@ -145,7 +145,7 @@ This page displays user achievements and profile details by retrieving data from
 - **Load User Data:** Fetches user data from `localStorage` and updates the profile page.
 - **Profile Picture Upload:** Enables users to update their profile picture with a new URL.
   
-![image](https://github.com/user-attachments/assets/3ef79354-a733-4595-9a94-472a26b83f95)
+![image](https://github.com/user-attachments/assets/eedd7cf7-84d7-4224-bef5-7fe419ed8066)
 
 
 ### Full Website Readme
