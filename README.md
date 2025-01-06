@@ -1,5 +1,7 @@
-## This is a game platform built with Java Script HTML and CSS
+# This is a game platform built with Java Script HTML and CSS
 ---
+## Link to website
+https://game-sphere-fswd.netlify.app
 
 ## Login and Registration System
 
