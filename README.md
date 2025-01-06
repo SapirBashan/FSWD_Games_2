@@ -25,7 +25,8 @@ The login and registration system enables secure user authentication and onboard
 - **Logic:** Client-side validation and user state management.
 
 ---
-![image](https://github.com/user-attachments/assets/18a71df9-3d12-436e-8fa6-a90d8df7e123)
+![image](https://github.com/user-attachments/assets/c88bcdf2-5a91-4fb1-941c-37c25c476d16)
+
 
 
 ## Home Page and Header
