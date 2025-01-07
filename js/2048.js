@@ -52,20 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   
-    // Prevent page refresh on pull down
-    window.addEventListener('touchmove', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-
-    // Prevent default touch behavior
-    window.addEventListener('touchstart', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-  
     // Swipe functionality
     let touchstartX = 0;
     let touchstartY = 0;
