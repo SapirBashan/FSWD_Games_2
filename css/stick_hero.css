@@ -3,6 +3,11 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  -webkit-user-select: none; /* Disable text selection on iOS Safari */
+  -ms-user-select: none; /* Disable text selection on Internet Explorer/Edge */
+  user-select: none; /* Disable text selection on modern browsers */
+  -webkit-touch-callout: none; /* Disable callout, e.g., copy/paste menu on iOS */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight color on iOS */
 }
 
 body {
