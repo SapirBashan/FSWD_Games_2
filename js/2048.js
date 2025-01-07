@@ -51,6 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard();
   }
 
+  
+    // Prevent page refresh on pull down
+    window.addEventListener('touchmove', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    // Prevent default touch behavior
+    window.addEventListener('touchstart', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  
     // Swipe functionality
     let touchstartX = 0;
     let touchstartY = 0;
@@ -90,13 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
     document.addEventListener('touchstart', (event) => {
-      event.preventDefault();
       touchstartX = event.changedTouches[0].screenX;
       touchstartY = event.changedTouches[0].screenY;
     });
   
     document.addEventListener('touchend', (event) => {
-      event.preventDefault();
       touchendX = event.changedTouches[0].screenX;
       touchendY = event.changedTouches[0].screenY;
       handleGesture();
