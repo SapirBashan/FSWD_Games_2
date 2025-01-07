@@ -50,6 +50,56 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard();
   }
 
+    // Swipe functionality
+    let touchstartX = 0;
+    let touchstartY = 0;
+    let touchendX = 0;
+    let touchendY = 0;
+  
+    function handleGesture() {
+      const diffX = touchendX - touchstartX;
+      const diffY = touchendY - touchstartY;
+  
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          // Swipe right
+            moveRight();
+            combineColumns();
+            moveRight();
+        } else {
+          // Swipe left
+          moveLeft();
+          combineColumns();
+          moveLeft();
+        }
+      } else {
+        if (diffY > 0) {
+          // Swipe down
+          moveDown();
+          combineRows();
+          moveDown();
+        } else {
+          // Swipe up
+          moveUp();
+          combineRows();
+          moveUp();
+        }
+      }
+      generate();
+    }
+  
+    document.addEventListener('touchstart', (event) => {
+      touchstartX = event.changedTouches[0].screenX;
+      touchstartY = event.changedTouches[0].screenY;
+    });
+  
+    document.addEventListener('touchend', (event) => {
+      touchendX = event.changedTouches[0].screenX;
+      touchendY = event.changedTouches[0].screenY;
+      handleGesture();
+    });
+  
+
   // Create the game board
   function createBoard() {
     for (let i = 0; i < width * width; i++) {

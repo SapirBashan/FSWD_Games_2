@@ -66,7 +66,7 @@ const heroButton1 = document.getElementById("hero1");
 const heroButton2 = document.getElementById("hero2");
 const scoreElement = document.getElementById("score");
 
-if(getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5){
+if(getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5 || getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') == undefined){
   heroButton1.style.background = "grey";
 }
 
@@ -254,22 +254,27 @@ window.addEventListener("keydown", function (event) {
   }
 });
 
-// change from stage waiting to stretching when the mouse is clicked
-window.addEventListener("mousedown", function (event) {
+// change from stage waiting to stretching when the mouse is clicked or touched
+function startStretching() {
   if (phase == "waiting") {
     lastTimestamp = undefined;
     introductionElement.style.opacity = 0;
     phase = "stretching";
     window.requestAnimationFrame(animate);
   }
+}
 
-});
+window.addEventListener("mousedown", startStretching);
+window.addEventListener("touchstart", startStretching);
 
-window.addEventListener("mouseup", function (event) {
+function stopStretching() {
   if (phase == "stretching") {
     phase = "turning";
   }
-});
+}
+
+window.addEventListener("mouseup", stopStretching);
+window.addEventListener("touchend", stopStretching);
 
 window.addEventListener("resize", function (event) {
   canvas.width = window.innerWidth;
@@ -313,7 +318,7 @@ function thePlatformTheStickHits() {
 heroButton1.addEventListener("click", function (event) {
   event.preventDefault();
   // if the users high score is less than 10 send a message to the user that the hero is locked
-  if (getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5) {
+  if (getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') < 5 || getUserData(localStorage.getItem('currentUser'), 'stickHeroHighScore') == undefined) {
     alert("You need to score at least 5 points to unlock this hero");
   } else {
      drawHero = drawHero1;
