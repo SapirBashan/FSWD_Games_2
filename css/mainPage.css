@@ -57,3 +57,10 @@ h1 {
     background-color: rgb(209, 227, 235);
 
 }
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 3em; /* Adjust the size as needed */
+    }
+}
